@@ -29,6 +29,7 @@ class AndroidDownloadManager {
       "downloadUrl": downloadUrl,
       "downloadPath": downloadPath,
       "description": description,
+      "fileName": fileName,
       "headers": headers,
       "allow_scanning_by_media_scanner": allowScanningByMediaScanner,
       "notification_visibility": notificationVisibility,
