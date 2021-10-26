@@ -1,8 +1,10 @@
 package com.tk.android_download_manager;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 
@@ -31,8 +33,9 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
         switch (call.method) {
             case "requestPermission":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!PermissionHandler.isPermissionGranted(context)) {
-                        PermissionHandler.requestPermission(this.activity);
+                    if (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        this.activity.requestPermissions(permissions, 1000);
                     }
                 }
                 break;
@@ -47,10 +50,11 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
                 Integer notificationVisibility = call.argument("notification_visibility");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (PermissionHandler.isPermissionGranted(context)) {
+                    if (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
                     } else {
-                        PermissionHandler.requestPermission(this.activity);
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        this.activity.requestPermissions(permissions, 1000);
                     }
                 } else {
                     downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);

@@ -1,0 +1,4 @@
+enum DownloadAction{
+  downloaded,
+  notificationClicked
+}

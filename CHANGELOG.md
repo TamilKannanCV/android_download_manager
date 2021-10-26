@@ -5,3 +5,7 @@
 ## 1.0.1
 
 * Updated README.md
+
+## 1.02
+
+* Updated download stream results
