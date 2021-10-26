@@ -5,7 +5,6 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 
 import androidx.annotation.NonNull;
 
@@ -74,11 +73,7 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
         if (allowScanningByMediaScanner == null || allowScanningByMediaScanner) {
             request.allowScanningByMediaScanner();
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-        } else {
-            request.setDestinationUri(Uri.fromFile(new File(downloadPath + "/" + fileName)));
-        }
+        request.setDestinationUri(Uri.fromFile(new File(downloadPath, fileName)));
         request.setTitle(fileName);
         request.setAllowedOverRoaming(true);
         request.setDescription(description);
