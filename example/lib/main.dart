@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:android_download_manager/android_download_manager.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +12,11 @@ void main() {
     home: Scaffold(
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.download),
-          onPressed: () {
+          onPressed: () async {
             AndroidDownloadManager.enqueue(
-              downloadUrl:
-                  "https://raw.githubusercontent.com/ableco/test-files/master/images/test-image-png_4032x3024.png",
-              downloadPath: Directory.systemTemp.path,
-              fileName: "test.png",
+              downloadUrl: "TODO:Download link goes here",
+              downloadPath: "/storage/emulated/0/Download/",
+              fileName: "test.mp4",
             );
           },
         ),
