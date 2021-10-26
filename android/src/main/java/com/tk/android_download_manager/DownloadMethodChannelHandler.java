@@ -1,16 +1,13 @@
 package com.tk.android_download_manager;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.util.Map;
@@ -31,12 +28,12 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-        switch (call.method) {
 
+        switch (call.method) {
             case "requestPermission":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!isPermissionGranted()) {
-                        requestPermission();
+                    if (!PermissionHandler.isPermissionGranted(context)) {
+                        PermissionHandler.requestPermission(this.activity);
                     }
                 }
                 break;
@@ -51,11 +48,11 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
                 Integer notificationVisibility = call.argument("notification_visibility");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    if (isPermissionGranted()) {
+                    if (PermissionHandler.isPermissionGranted(context)) {
                         downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
-//                    } else {
-//                        requestPermission();
-//                    }
+                    } else {
+                        PermissionHandler.requestPermission(this.activity);
+                    }
                 } else {
                     downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
                 }
@@ -90,14 +87,5 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isPermissionGranted() {
-        return context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestPermission() {
-        int PERMISSION_CODE = 5000;
-        this.activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_CODE);
-    }
 }
