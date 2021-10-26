@@ -49,16 +49,16 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
                 Boolean allowScanningByMediaScanner = call.argument("allow_scanning_by_media_scanner");
                 Integer notificationVisibility = call.argument("notification_visibility");
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
-                    } else {
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        this.activity.requestPermissions(permissions, 1000);
-                    }
-                } else {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    if (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//                        downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
+//                    } else {
+//                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//                        this.activity.requestPermissions(permissions, 1000);
+//                    }
+//                } else {
                     downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
-                }
+//                }
                 result.success(downloadId);
                 break;
             default:
