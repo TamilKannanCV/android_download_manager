@@ -51,11 +51,11 @@ public class DownloadMethodChannelHandler implements MethodChannel.MethodCallHan
                 Integer notificationVisibility = call.argument("notification_visibility");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (isPermissionGranted()) {
+//                    if (isPermissionGranted()) {
                         downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
-                    } else {
-                        requestPermission();
-                    }
+//                    } else {
+//                        requestPermission();
+//                    }
                 } else {
                     downloadId = enqueue(downloadUrl, fileName, downloadPath, headers, allowScanningByMediaScanner, description, notificationVisibility);
                 }
