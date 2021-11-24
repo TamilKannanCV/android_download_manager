@@ -1,6 +1,9 @@
 # android_download_manager
-
 This package lets you download files via Android Native Download Manager.
+
+![Pub version](https://img.shields.io/pub/v/android_download_manager)
+![License](https://img.shields.io/github/license/TamilKannanCV-personal/android_download_manager)
+---
 
 ## Getting Started
 
