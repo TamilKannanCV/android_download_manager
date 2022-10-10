@@ -65,11 +65,11 @@ public class AndroidDownloadManagerPlugin implements FlutterPlugin, ActivityAwar
 
     @Override
     public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
-
+        activity = binding.getActivity();
     }
 
     @Override
     public void onDetachedFromActivity() {
-
+        activity = null;
     }
 }
