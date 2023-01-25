@@ -6,6 +6,10 @@
 
 * Updated README.md
 
-## 1.02
+## 1.0.2
 
 * Updated download stream results
+
+## 1.0.3
+
+* Fixes an error when requesting permission
